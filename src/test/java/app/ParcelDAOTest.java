@@ -1,6 +1,7 @@
 package app;
 
 import app.config.HibernateConfig;
+import app.dao.ParcelDAO;
 import app.entities.DeliveryStatus;
 import app.entities.Parcel;
 

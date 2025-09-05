@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -24,6 +27,12 @@ public class Parcel {
     private DeliveryStatus deliveryStatus;
     LocalDateTime updated;
 
+    @OneToMany (mappedBy = "parcel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @Builder.Default
+    private Set<Shipment> shipments = new HashSet<>();
+
+
     @PrePersist
     public void prePersist() {
         updated = LocalDateTime.now();
@@ -32,6 +41,14 @@ public class Parcel {
     @PreUpdate
     public void preUpdate() {
         updated = LocalDateTime.now();
+    }
+
+    // Uni-directional add
+
+    public void addShipment(Location sourceLocation, Location destinationLocation, LocalDateTime dateTime) {
+        Shipment shipment = new Shipment(this, sourceLocation, destinationLocation, dateTime);
+        this.shipments.add(shipment);
+
     }
 
 }

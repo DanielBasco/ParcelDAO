@@ -1,5 +1,6 @@
 package app;
 
+import app.dao.ParcelDAO;
 import app.entities.DeliveryStatus;
 import app.entities.Parcel;
 

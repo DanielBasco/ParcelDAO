@@ -1,4 +1,4 @@
-package app;
+package app.dao;
 
 import app.config.HibernateConfig;
 
@@ -86,6 +86,15 @@ public class ParcelDAO {
                    .getResultList();
 
 
+        }
+    }
+
+    public Parcel update(Parcel parcel){
+        try(EntityManager em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            em.merge(parcel);
+            em.getTransaction().commit();
+            return parcel;
         }
     }
 
